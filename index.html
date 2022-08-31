@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Калькулятор</title>
+<link rel="stylesheet" href="style.css">
+<style type="text/css">
+body{margin:0;padding:0;font-family:arial,helvetica,sans-serif;font-size:14px;}
+h2{font-size:20px; text-align:center;}
+a{color:#777;text-decoration:none;} 
+a:hover{color:black;}
+table{border-collapse: collapse;}
+table td{background-color:#f9f9f9;border:1px solid #dddddd;}
+table th{border:1px solid #dddddd;}
+#wrapper{margin:0 auto; max-width:440px; overflow:hidden; box-shadow: 0px 0px 8px 0px rgba(34, 60, 80, 0.2); padding:0 20px 20px 20px; display:flex; justify-content: space-around; flex-wrap:wrap; flex-direction:row; background-color:#ffe7b2;}
+input,textarea,select{padding:5px; margin:10px 2px; border:1px solid #c2c2c2;}
+#items,#result{margin:20px;}
+#result,#magic{display:none;}
+#chakr-title{text-align:left;}
+#chakr-descr{text-align:right; padding-left:4px;}
+#chakr{display:flex; justify-content:space-between; flex-direction:row; border-bottom:1px solid gray; margin:8px 0;}
+@media all and (max-width:550px) {
+}
+</style>
+<script src="javascript.js"></script>
+<script type="text/javascript">
+let male = true;
+
+function calcWord(str){
+	str = str.toUpperCase()
+	let res = 0;
+	for (let i = 0; i < str.length; i++) {
+		if (str[i] == 'А' || str[i] == 'И' || str[i] == 'С' || str[i] == 'Ъ') res += 1;
+		if (str[i] == 'Б' || str[i] == 'Й' || str[i] == 'Т' || str[i] == 'Ы') res += 2;
+		if (str[i] == 'В' || str[i] == 'К' || str[i] == 'У' || str[i] == 'Ь') res += 3;
+		if (str[i] == 'Г' || str[i] == 'Л' || str[i] == 'Ф' || str[i] == 'Э') res += 4;
+		if (str[i] == 'Д' || str[i] == 'М' || str[i] == 'Х' || str[i] == 'Ю') res += 5;
+		if (str[i] == 'Е' || str[i] == 'Н' || str[i] == 'Ц' || str[i] == 'Я') res += 6;
+		if (str[i] == 'Ё' || str[i] == 'О' || str[i] == 'Ч') res += 7;
+		if (str[i] == 'Ж' || str[i] == 'П' || str[i] == 'Ш') res += 8;
+		if (str[i] == 'З' || str[i] == 'Р' || str[i] == 'Щ') res += 9;
+	}
+	if (res > 22) {
+		let newRes = res.toString();
+		res = 0;
+		for (let i = 0; i < newRes.length; i++)
+			res += parseInt(newRes[i]);
+	}
+	return res;
+}
+
+function calcNum(num){
+	let res = 0;
+	if (parseInt(num) > 22) {
+		let newRes = num.toString();
+		res = 0;
+		for (let i = 0; i < newRes.length; i++)
+			res += parseInt(newRes[i]);
+	} else res = parseInt(num);
+	if (res > 22)
+		res = calcNum(res);
+	return res;
+}
+
+function calc(){
+	let familiya = document.getElementById('fam').value;
+	if (familiya.trim() == '') {alert('Нужно заполнить поле "Фамилия"'); return;}
+	
+	let imya = document.getElementById('imya').value;
+	if (imya.trim() == '') {alert('Нужно заполнить поле "Имя"'); return;}
+	
+	let fampat;
+	let otch;
+	
+	if (male) {
+		otch = document.getElementById('otch').value;
+		if (otch.trim() == '') {alert('Нужно заполнить поле "Отчество"'); return;}
+	} else {
+		fampap = document.getElementById('fam-pap').value;
+		if (fampap.trim() == '') {alert('Нужно заполнить поле "Фамилия отца"'); return;}
+	}
+	
+	let fammat = document.getElementById('fam-mat').value;
+	if (fammat.trim() == '') {alert('Нужно заполнить поле "Фамилия матери"'); return;}
+	
+	let dayroj = document.getElementById('day').value;
+	if (dayroj.trim() == '') {alert('Нужно заполнить поле "День рождения"'); return;}
+	
+	let month = document.getElementById('month').value;
+	if (month.trim() == '') {alert('Нужно заполнить поле "Месяц рождения"'); return;}
+	
+	let year = document.getElementById('year').value;
+	if (year.trim() == '') {alert('Нужно заполнить поле "Год рождения"'); return;}
+	
+	
+	let num1 = calcNum(dayroj);
+	let num2 = calcNum(month);
+	let num3 = calcNum(year);
+	let num4 = calcNum(num1 + num2 + num3);
+	let num5 = calcWord(familiya);
+	let num6 = 0;
+	if (male) num6 = calcWord(otch); else num6 = calcWord(fampap);
+	let num7 = calcWord(imya);
+	let num8 = calcWord(fammat);
+	let num9 = calcNum(num1 + num2 + num3 + num4);
+	let num10 = calcNum(num5 + num6 + num7 + num8);
+	let num11 = calcNum(num9 + num5);
+	let num12 = calcNum(num11 + num5);
+	let num13 = calcNum(num9 + num6);
+	let num14 = calcNum(num13 + num6);
+	let num15 = calcNum(num9 + num7);
+	let num16 = calcNum(num15 + num7);
+	let num17 = calcNum(num9 + num8);
+	let num18 = calcNum(num17 + num8);
+	let num19 = calcNum(num9 + num1);
+	let num20 = calcNum(num19 + num1);
+	let num21 = calcNum(num9 + num3);
+	let num22 = calcNum(num21 + num3);
+	let num23 = calcNum(num9 + num2);
+	let num24 = calcNum(num23 + num2);
+	let num25 = calcNum(num9 + num4);
+	let num26 = calcNum(num25 + num4);
+	
+	let lichnoe = calcNum(calcNum(num2 + num4) + calcNum(num1 + num3));
+	let socialnoe = calcNum(calcNum(num5 + num6) + calcNum(num7 + num8));
+	let duhovnoe = calcNum(lichnoe + socialnoe);
+	
+	document.getElementById('result').style.display = 'block';
+	
+	
+	document.getElementById('result').innerHTML = '<h2>Предназначение</h2><div id="chakrs">' +
+	'<div id="chakr"><div id="chakr-title">Личное:</div><div id="chakr-descr">' + lichnoe + '</div></div>' + 
+	'<div id="chakr"><div id="chakr-title">Социальное:</div><div id="chakr-descr">' + socialnoe + '</div></div>' + 
+	'<div id="chakr"><div id="chakr-title">Духовное:</div><div id="chakr-descr">' + duhovnoe + '</div></div>';
+	
+	document.getElementById('result').innerHTML += 
+	'<div id="chakr"><div id="chakr-title">Мужской род:</div><div id="chakr-descr">' + num5 + ' ' + num6 + ' ' + calcNum(num5 + num6) + '</div></div>' +
+	'<div id="chakr"><div id="chakr-title">Женский род:</div><div id="chakr-descr">' + num7 + ' ' + num8 + ' ' + calcNum(num7 + num8) + '</div></div>';
+
+	let chakr1 = num4 + ' ' + num3 + ' ' + calcNum(num4 + num3);
+	let chakr2 = num26 + ' ' + num22 + ' ' + calcNum(num26 + num22);
+	let chakr3 = num25 + ' ' + num21 + ' ' + calcNum(num25 + num21);
+	let chakr4 = num9 + ' ' + num10 + ' ' + calcNum(num9 + num10);
+	let chakr41 = num5 + ' ' + num6 + ' ' + calcNum(num5 + num6);
+	let chakr5 = num7 + ' ' + num8 + ' ' + calcNum(num7 + num8);
+	let chakr6 = num23 + ' ' + num19 + ' ' + calcNum(num23 + num19);
+	let chakr7 = num24 + ' ' + num20 + ' ' + calcNum(num24 + num20);
+	let chakr71 = num2 + ' ' + num1 + ' ' + calcNum(num2 + num1);
+	
+	document.getElementById('result').innerHTML += 
+	'<div id="chakr"><div id="chakr-title">7 чакра (первая линия):<br>               вторая линия:</div><div id="chakr-descr">' + chakr7 + '<br>' + chakr71 + '</div></div>' + 
+	'<div id="chakr"><div id="chakr-title">6 чакра:</div><div id="chakr-descr">' + chakr6 + '</div></div>' +
+	'<div id="chakr"><div id="chakr-title">5 чакра:</div><div id="chakr-descr">' + chakr5 + '</div></div>' +
+	'<div id="chakr"><div id="chakr-title">4 чакра (первая линия):<br>               вторая линия:</div><div id="chakr-descr">' + chakr4  + '<br>' + chakr41 + '</div></div>' +
+	'<div id="chakr"><div id="chakr-title">3 чакра:</div><div id="chakr-descr">' + chakr3 + '</div></div>' +
+	'<div id="chakr"><div id="chakr-title">2 чакра:</div><div id="chakr-descr">' + chakr2 + '</div></div>' +
+	'<div id="chakr"><div id="chakr-title">1 чакра:</div><div id="chakr-descr">' + chakr1 + '</div></div>';
+	
+	document.getElementById('magic').style.display = 'block';
+	let ctx = document.getElementById('magic').getContext('2d');
+	ctx.clearRect(0, 0, 300, 300);
+	ctx.font = "18px serif";
+	
+	//Верх
+	ctx.fillText(num2, 141, 18);
+	ctx.fillText(num24, 141, 50);
+	ctx.fillText(num23, 141, 80);
+	
+	//Центр
+	ctx.fillText(num9, 155, 170);
+	ctx.fillText(num10, 180, 170);
+	
+	//Низ
+	ctx.fillText(num25, 141, 230);
+	ctx.fillText(num26, 141, 260);
+	ctx.fillText(num4, 141, 295);
+	
+	//Лево-верх
+	ctx.fillText(num5, 40, 55);
+	ctx.fillText(num12, 70, 85);
+	ctx.fillText(num11, 90, 105);
+	
+	//Лево-центр
+	ctx.fillText(num1, 0, 155);
+	ctx.fillText(num20, 40, 155);
+	ctx.fillText(num19, 70, 155);
+	
+	//Лево-низ
+	ctx.fillText(num8, 45, 255);
+	ctx.fillText(num18, 65, 230);
+	ctx.fillText(num17, 90, 205);
+	
+	//Право-верх
+	ctx.fillText(num7, 240, 55);
+	ctx.fillText(num16, 215, 80);
+	ctx.fillText(num15, 190, 105);
+	
+	//Право-центр
+	ctx.fillText(num21, 210, 155);
+	ctx.fillText(num22, 245, 155);
+	ctx.fillText(num3, 280, 155);	
+	
+	//Право-низ
+	ctx.fillText(num13, 190, 205);
+	ctx.fillText(num14, 215, 230);
+	ctx.fillText(num6, 240, 255);
+}
+
+function hideEms(){
+	if (document.getElementById('gender').checked) male = true; else male = false;
+	let items = document.getElementById('items').getElementsByTagName('div');
+	if (male) {
+		for (let i = 0; i < items.length; i++) {
+			if (items[i].getAttribute('id') == 'item3')
+				items[i].style.display = 'none';
+			if (items[i].getAttribute('id') == 'item2')
+				items[i].style.display = 'block';
+		}
+	} else {
+		for (let i = 0; i < items.length; i++) {
+			if (items[i].getAttribute('id') == 'item3')
+				items[i].style.display = 'block';
+			if (items[i].getAttribute('id') == 'item2')
+				items[i].style.display = 'none';
+		}
+	}
+}
+
+document.addEventListener("DOMContentLoaded", function(){
+	hideEms();
+});
+</script>
+</head>
+<body>
+<div id="wrapper">
+	<div id="items">
+		<h2>Калькулятор</h2>
+		<div id="item">
+		Выберите пол:<br>
+		<input type="radio" onclick="hideEms()" checked="checked" id="gender" name="allgender" value="male">
+		<label for="gender">Мужчина</label>  
+		<input type="radio" onclick="hideEms()" id="gender2" name="allgender" value="female">
+		<label for="gender2">Женщина</label></div>
+		<div id="item"><input type="text" style="width:155px;" id="fam" placeholder="Фамилия" /></div>
+		<div id="item"><input type="text" style="width:155px;" id="imya" placeholder="Имя" /></div>
+		<div id="item2"><input type="text" style="width:155px;" id="otch" placeholder="Отчество" /></div>
+		<div id="item"><input type="text" style="width:155px;" id="fam-mat" placeholder="Девичья фамилия матери" /></div>
+		<div id="item3"><input type="text" style="width:155px;" id="fam-pap" placeholder="Фамилия отца" /></div>
+		<div id="item">Дата рождения:<br>
+		<input type="text" id="day" oninput="this.value=this.value.replace(/[^\d]/,'')" style="width:41px;" maxlength="2" placeholder="День" /><input type="text" oninput="this.value=this.value.replace(/[^\d]/,'')" maxlength="2" id="month" style="width:41px;" placeholder="Месяц" /><input type="text" oninput="this.value=this.value.replace(/[^\d]/,'')" maxlength="4" id="year" style="width:41px;" placeholder="Год" /></div>
+		<div id="item"><input type="button" onclick="calc()" value="Рассчитать" /></div>
+	</div>
+	<div id="result"></div>
+	<canvas id="magic" style="background-image:url(magic.png); background-size:cover;" width="300" height="300"></canvas>
+</div>
+</body>
+</html>
