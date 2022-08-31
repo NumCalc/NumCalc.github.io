@@ -6,7 +6,7 @@
 <title>Калькулятор</title>
 <link rel="stylesheet" href="style.css">
 <style type="text/css">
-body{margin:0;padding:0;font-family:arial,helvetica,sans-serif;font-size:14px;}
+body{margin:0;padding:0;font-family:arial,helvetica,sans-serif;font-size:16px;}
 h2{font-size:20px; text-align:center;}
 a{color:#777;text-decoration:none;} 
 a:hover{color:black;}
@@ -19,7 +19,7 @@ input,textarea,select{padding:5px; margin:10px 2px; border:1px solid #c2c2c2;}
 #result,#magic{display:none;}
 #chakr-title{text-align:left;}
 #chakr-descr{text-align:right; padding-left:4px;}
-#chakr{display:flex; justify-content:space-between; flex-direction:row; border-bottom:1px solid gray; margin:8px 0;}
+#chakr{display:flex; justify-content:space-between; flex-direction:row; border-bottom:1px solid gray; margin:10px 0; paddding:2px 0;}
 @media all and (max-width:550px) {
 }
 </style>
@@ -149,10 +149,10 @@ function calc(){
 	let chakr71 = num2 + ' ' + num1 + ' ' + calcNum(num2 + num1);
 	
 	document.getElementById('result').innerHTML += 
-	'<div id="chakr"><div id="chakr-title">7 чакра (первая линия):<br>               вторая линия:</div><div id="chakr-descr">' + chakr7 + '<br>' + chakr71 + '</div></div>' + 
+	'<div id="chakr"><div id="chakr-title">7 чакра (вторая линия):<br>               первая линия:</div><div id="chakr-descr">' + chakr71 + '<br>' + chakr7 + '</div></div>' + 
 	'<div id="chakr"><div id="chakr-title">6 чакра:</div><div id="chakr-descr">' + chakr6 + '</div></div>' +
 	'<div id="chakr"><div id="chakr-title">5 чакра:</div><div id="chakr-descr">' + chakr5 + '</div></div>' +
-	'<div id="chakr"><div id="chakr-title">4 чакра (первая линия):<br>               вторая линия:</div><div id="chakr-descr">' + chakr4  + '<br>' + chakr41 + '</div></div>' +
+	'<div id="chakr"><div id="chakr-title">4 чакра (вторая линия):<br>               первая линия:</div><div id="chakr-descr">' + chakr4  + '<br>' + chakr41 + '</div></div>' +
 	'<div id="chakr"><div id="chakr-title">3 чакра:</div><div id="chakr-descr">' + chakr3 + '</div></div>' +
 	'<div id="chakr"><div id="chakr-title">2 чакра:</div><div id="chakr-descr">' + chakr2 + '</div></div>' +
 	'<div id="chakr"><div id="chakr-title">1 чакра:</div><div id="chakr-descr">' + chakr1 + '</div></div>';
