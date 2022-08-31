@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Калькулятор</title>
+<link rel="stylesheet" href="style.css">
+<style type="text/css">
+body{margin:0;padding:0;font-family:arial,helvetica,sans-serif;font-size:14px;}
+h2{font-size:20px; text-align:center;}
+a{color:#777;text-decoration:none;} 
+a:hover{color:black;}
+table{border-collapse: collapse;}
+table td{background-color:#f9f9f9;border:1px solid #dddddd;}
+table th{border:1px solid #dddddd;}
+#wrapper{margin:0 auto; max-width:640px; overflow:hidden; box-shadow: 0px 0px 8px 0px rgba(34, 60, 80, 0.2); padding:0 20px 20px 20px; display:flex; justify-content: space-around; flex-wrap:wrap; flex-direction:row; background-color:#ffe7b2;}
+input,textarea,select{padding:5px; margin:10px 2px; border:1px solid #c2c2c2;}
+#items,#result{margin:20px;}
+#result,#magic{display:none;}
+#chakr-title{text-align:left;}
+#chakr-descr{text-align:right; padding-left:4px;}
+#chakr{display:flex; justify-content:space-between; flex-direction:row; border-bottom:1px solid gray; margin:8px 0;}
+@media all and (max-width:550px) {
+}
+</style>
+<script src="javascript.js"></script>
+<script type="text/javascript">
+function calcWord(str){
+	str = str.toUpperCase()
+	let res = 0;
+	for (let i = 0; i < str.length; i++) {
+		if (str[i] == 'А' || str[i] == 'И' || str[i] == 'С' || str[i] == 'Ъ') res += 1;
+		if (str[i] == 'Б' || str[i] == 'Й' || str[i] == 'Т' || str[i] == 'Ы') res += 2;
+		if (str[i] == 'В' || str[i] == 'К' || str[i] == 'У' || str[i] == 'Ь') res += 3;
+		if (str[i] == 'Г' || str[i] == 'Л' || str[i] == 'Ф' || str[i] == 'Э') res += 4;
+		if (str[i] == 'Д' || str[i] == 'М' || str[i] == 'Х' || str[i] == 'Ю') res += 5;
+		if (str[i] == 'Е' || str[i] == 'Н' || str[i] == 'Ц' || str[i] == 'Я') res += 6;
+		if (str[i] == 'Ё' || str[i] == 'О' || str[i] == 'Ч') res += 7;
+		if (str[i] == 'Ж' || str[i] == 'П' || str[i] == 'Ш') res += 8;
+		if (str[i] == 'З' || str[i] == 'Р' || str[i] == 'Щ') res += 9;
+	}
+	if (res > 22) {
+		let newRes = res.toString();
+		res = 0;
+		for (let i = 0; i < newRes.length; i++)
+			res += parseInt(newRes[i]);
+	}
+	return res;
+}
+
+function calc(){
+	document.getElementById('result').style.display = 'block';
+	document.getElementById('result').innerHTML = '<h2>Результаты:</h2><div id="chakrs">';
+	let color = document.getElementById('color').value;
+	if (color.trim() != '')
+		document.getElementById('result').innerHTML += '<div id="chakr"><div id="chakr-title">Энергия:</div><div id="chakr-descr">' + calcWord(color) + '</div></div>';
+}
+
+document.addEventListener("DOMContentLoaded", function(){
+
+});
+</script>
+</head>
+<body>
+<div id="wrapper">
+	<div id="items">
+		<h2>Калькулятор</h2>
+		<div id="item">
+		<div id="item"><input type="text" style="width:155px;" id="color" placeholder="Слово" /></div>
+		<div id="item"><input type="button" onclick="calc()" value="Рассчитать" /></div>
+	</div>
+	<div id="result"></div>
+</div>
+</body>
+</html>
