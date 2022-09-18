@@ -208,8 +208,12 @@ function calc(){
 }
 
 function hideEms(){
+	if (document.getElementById('gender2').checked) male = false; else male = true;
+}
+
+function hideEms2(){
 	return; //Попросили
-	if (document.getElementById('gender').checked) male = true; else male = false;
+	if (document.getElementById('gender2').checked) male = false; else male = true;
 	let items = document.getElementById('items').getElementsByTagName('div');
 	if (male) {
 		for (let i = 0; i < items.length; i++) {
